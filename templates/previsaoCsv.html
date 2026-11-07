@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>TES-Final</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/">
+            Eai, vai <span>trancar</span>?
+        </a>
+    </nav>
+    <main class="previsao-csv-main">
+        <h1>Com base nos dados fornecidos</h2>
+        <div>
+            <h1>Estatisticas</h1>
+            <div class="grid-estatisticas">
+                <div class="container-graficos">
+                    <h2>Dataset Original</h2>
+                    <div class="image-container">
+                        <img src="https://observatorioobstetricobr.org/wp-content/uploads/2021/12/fig1.png" />
+                    </div>
+                    <div class="image-container">
+                        <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                    </div>
+                    <div class="image-container">
+                        <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
+                    </div>
+                </div>
+                <div class="container-graficos">
+                    <h2>Dataset Fornecido</h2>
+                    <div class="image-container">
+                        <img src="https://observatorioobstetricobr.org/wp-content/uploads/2021/12/fig1.png" />
+                    </div>
+                    <div class="image-container">
+                        <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                    </div>
+                    <div class="image-container">
+                        <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Identificador</th>
+                        <th>Previsão</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for previsao in dados.previsoes %}
+                    <tr>
+                        <td>{{previsao.id}}</td>
+                        <td>
+                            {% if previsao.result == 0%}
+                            EVASÃO
+                            {%else%}
+                            CONCLUSÃO
+                            {%endif%}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a class="button" href="{{url_for('formEnvio')}}">Fazer outra previsão</a>
+    </main>
+</body>
+
+</html>
