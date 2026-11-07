@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>TES-Final</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/">
+            Eai, vai <span>trancar</span>?
+        </a>
+    </nav>
+    <main>
+        <div class="grid-home">
+            <div class="information-container">
+                <h1>Previsão de evasão universitária</h1>
+                <div>
+                    <h2>Desenvolvido por</h2>
+                    <ul>
+                        <li>João Pellison</li>
+                        <li>Matheus Camilo</li>
+                        <li>Osmar Cardoso</li>
+                        <li>Pedro Volpatto</li>
+                    </ul>
+                </div>
+                <a href="{{url_for('formEnvio')}}" class="button">Acessar o sistema</a>
+            </div>
+            <div class="image-container">
+                <img src="https://observatorioobstetricobr.org/wp-content/uploads/2021/12/fig1.png" />
+            </div>
+            <div class="image-container">
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+            </div>
+            <div class="image-container">
+                <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

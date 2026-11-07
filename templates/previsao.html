@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>TES-Final</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/">
+            Eai, vai <span>trancar</span>?
+        </a>
+    </nav>
+    <main class="result-main">
+            <h2>Com base nos dados fornecidos</h2>
+            <h1>Maior probabilidade de</h1>
+            {% if resultado == 0%}
+                <span class="prev-result dropout">EVASÃO</span>
+            {%else%}
+                <span class="prev-result graduate">CONCLUSÃO</span>
+            {%endif%}
+            <a class="button" href="{{url_for('formEnvio')}}">Fazer outra previsão</a>
+    </main>
+</body>
+
+</html>
