@@ -75,7 +75,7 @@ for texto in plt.gca().texts:
 
 plt.tight_layout()
 # Salvar imagem
-plt.savefig("arvore_decisao.png", dpi=300, bbox_inches="tight")
+plt.savefig("resultados/arvore_decisao.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # Salva o modelo treinado em um arquivo para utilizá-lo posteriormente no Flask.
