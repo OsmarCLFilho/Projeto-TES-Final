@@ -32,15 +32,13 @@
 | Sensibilidade | 0,64 | 0,64 |
 | Medida F1 | 0,58 | 0,69 |
 
-3. O que é o Índice Gini?
+## 3. O que é o Índice Gini?
 
 O Índice Gini é utilizado pela Árvore de Decisão para medir o quanto os dados estão misturados em um determinado grupo.
 
-Gini igual a 0: significa que todos os registros daquele grupo pertencem à mesma classe.
-
-Gini maior que 0: significa que existem registros de classes diferentes misturados.
-
-Quanto menor o Gini, mais separados estão os dados.
+- **Gini igual a 0:** significa que todos os registros daquele grupo pertencem à mesma classe.
+- **Gini maior que 0:** significa que existem registros de classes diferentes misturados.
+- **Quanto menor o Gini, mais separados estão os dados.**
 
 Durante o treinamento, a Árvore de Decisão calcula o Índice Gini para avaliar diferentes divisões dos dados e escolhe aquelas que conseguem separar melhor as classes.
 
