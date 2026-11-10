@@ -15,7 +15,7 @@
         </a>
     </nav>
     <main class="previsao-csv-main">
-        <h1>Com base nos dados fornecidos</h2>
+        <h1>Com base nos dados fornecidos</h1>
         <div>
             <h1>Estatisticas</h1>
             <div class="grid-estatisticas">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="image-container">
                         <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
                     </div>
                     <div class="image-container">
                         <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
@@ -39,7 +39,7 @@
                     </div>
                     <div class="image-container">
                         <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
                     </div>
                     <div class="image-container">
                         <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
@@ -47,29 +47,58 @@
                 </div>
             </div>
         </div>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Identificador</th>
-                        <th>Previsão</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for previsao in dados.previsoes %}
-                    <tr>
-                        <td>{{previsao.id}}</td>
-                        <td>
-                            {% if previsao.result == 0%}
-                            EVASÃO
-                            {%else%}
-                            CONCLUSÃO
-                            {%endif%}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <h1>Previsões</h1>
+        <div class="grid-result">
+            <div>
+                <h3>Modelo Logistico</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Identificador</th>
+                            <th>Previsão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for previsao in previsaoLog %}
+                        <tr>
+                            <td>{{loop.index0}}</td>
+                            <td>
+                                {% if previsao == "Dropout"%}
+                                <span class="dropout">EVASÃO</span>
+                                {%else%}
+                                <span class="graduate">CONCLUSÃO</span>
+                                {%endif%}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3>Modelo Decision Tree</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Identificador</th>
+                            <th>Previsão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for previsao in previsaoDes %}
+                        <tr>
+                            <td>{{loop.index0}}</td>
+                            <td>
+                                {% if previsao == "Dropout"%}
+                                <span class="dropout">EVASÃO</span>
+                                {%else%}
+                                <span class="graduate">CONCLUSÃO</span>
+                                {%endif%}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <a class="button" href="{{url_for('formEnvio')}}">Fazer outra previsão</a>
     </main>

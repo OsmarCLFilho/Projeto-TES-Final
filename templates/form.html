@@ -15,6 +15,11 @@
         </a>
     </nav>
     <main class="form-main">
+        {% if erro %}
+        <div class="erro-mensagem">
+            {{ erro }}
+        </div>
+        {% endif %}
         <h1 class="form-title">Para gerar uma previsão de evasão universitária, você deve escolher uma forma de enviar
             os dados</h1>
         <form id="formPrev" action="{{url_for('preverResultadoCsv')}}" method="POST" enctype="multipart/form-data">

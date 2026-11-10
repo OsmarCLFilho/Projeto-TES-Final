@@ -123,6 +123,16 @@ main {
     font-size: 2.5rem;
 }
 
+.erro-mensagem {
+    background-color: #FEE2E2;
+    color: #991B1B;
+    border: 1px solid #EF4444;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -206,14 +216,14 @@ select:disabled {
         font-size: 6rem;
         font-weight: bold;
     }
+}
 
-    .graduate {
-        color: rgb(0, 112, 0);
-    }
+.graduate {
+    color: rgb(0, 112, 0);
+}
 
-    .dropout {
-        color: red;
-    }
+.dropout {
+    color: red;
 }
 
 .previsao-csv-main {
@@ -221,6 +231,35 @@ select:disabled {
     flex-direction: column;
     align-items: center;
     gap: 3rem;
+
+    h1 {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+}
+
+.grid-estatisticas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .container-graficos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        h2 {
+            font-size: 2rem;
+        }
+    }
+}
+
+.grid-result {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
     table {
         table-layout: fixed;
@@ -240,26 +279,7 @@ select:disabled {
         background-color: #dddddd;
     }
 
-    h1{
-        font-size: 3rem;
+    h3 {
         text-align: center;
-        margin-bottom: 3rem;
-    }
-}
-
-.grid-estatisticas{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    .container-graficos{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-
-        h2{
-            font-size: 2rem;
-        }
     }
 }
