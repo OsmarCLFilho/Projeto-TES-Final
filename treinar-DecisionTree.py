@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import joblib
 from sklearn.model_selection import train_test_split
@@ -12,7 +13,7 @@ from sklearn.metrics import classification_report
 df = pd.read_csv('data/dataset.csv', sep=";")
 
 df = df[df["Target"] != "Enrolled"]
-print(df["Target"].value_counts())
+print(df.loc[:, "Target"].value_counts())
 print(df.shape)
 
 ##      nota de admissao    idade ao entrar     se possui bolsa
@@ -45,7 +46,37 @@ matriz_df = pd.DataFrame(
     index=["Era Dropout", "Era Graduate"],
     columns=["Previu Dropout", "Previu Graduate"]
 )
-print(matriz_df)
+
+fig, ax = plt.subplots(figsize=(6, 5))
+
+## -- Desenha a matriz de confusão
+im = ax.imshow(matriz_df.values, cmap="Blues")
+fig.colorbar(im, ax=ax, label="Count")
+
+ax.set_xticks(np.arange(len(matriz_df.columns)))
+ax.set_yticks(np.arange(len(matriz_df.index)), labels=matriz_df.index, rotation=45)
+ax.set_xticklabels(matriz_df.columns)
+ax.set_yticklabels(matriz_df.index)
+
+threshold = matriz_df.values.max() / 2
+for i in range(matriz_df.shape[0]):
+    for j in range(matriz_df.shape[1]):
+        valor = matriz_df.iloc[i, j]
+        ax.text(
+            j, i, f"{valor}",
+            ha="center", va="center",
+            fontsize=14,
+            color="white" if valor > threshold else "black",
+        )
+
+ax.set_xlabel("Previsto")
+ax.set_ylabel("Real")
+ax.set_title("Matriz de Confusão")
+
+plt.tight_layout()
+
+plt.savefig("resultados/decisiontree_confusao.png", dpi=300, bbox_inches="tight")
+plt.show(block=False)
 
 # Gera um relatório com métricas de avaliação do modelo,
 # mostrando precisão, recall, F1-score e quantidade de exemplos por categoria.
