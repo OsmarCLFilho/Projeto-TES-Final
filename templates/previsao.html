@@ -15,14 +15,27 @@
         </a>
     </nav>
     <main class="result-main">
-            <h2>Com base nos dados fornecidos</h2>
-            <h1>Maior probabilidade de</h1>
-            {% if resultado == 0%}
+        <h2>Com base nos dados fornecidos</h2>
+        <h1>Maior probabilidade de</h1>
+        <div class="grid-result">
+            <div>
+                <h3>Modelo Logistico</h3>
+                {% if resultadoLog == "Dropout" %}
                 <span class="prev-result dropout">EVASÃO</span>
-            {%else%}
+                {%else%}
                 <span class="prev-result graduate">CONCLUSÃO</span>
-            {%endif%}
-            <a class="button" href="{{url_for('formEnvio')}}">Fazer outra previsão</a>
+                {%endif%}
+            </div>
+            <div>
+                <h3>Modelo Decision Tree</h3>
+                {% if resultadoDes == "Dropout" %}
+                <span class="prev-result dropout">EVASÃO</span>
+                {%else%}
+                <span class="prev-result graduate">CONCLUSÃO</span>
+                {%endif%}
+            </div>
+        </div>
+        <a class="button" href="{{url_for('formEnvio')}}">Fazer outra previsão</a>
     </main>
 </body>
 
