@@ -93,7 +93,7 @@ def gerarEstatisticas():
 def gerarEstatisticasCsv(df):
     return _estatistics(df)
 
-#comecando os graficos
+# criando os graficos
 
 def _save(fig, name):
     path = f"{static_folder}/name"
