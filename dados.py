@@ -40,16 +40,19 @@ def _colsTypes(df):
 
 #comecando as estatisticas
 
-#essa funcao eh do que diz no slide 06, na parte analise do problema que eh explicar tres achados do dataframe
+#essa funcao é do que diz no slide 06, na parte analise do problema que é explicar tres achados do dataframe
 def generateFindings(df):
-    givenUp = (df[target_col] == "Dropout") * 100 #se der 100, eh pq desistiu, o 0 se concluiu
+    # multiplica por 100 para calcular porcentagem com .mean()
+    givenUp = (df[target_col] == "Dropout") * 100
+
     scholarship = givenUp.groupby(df["Scholarship holder"]).mean().round(1)
+
     age = df.groupby(target_col)["Age at enrollment"].mean().round(1)
     nota = df.groupby(target_col)["Admission grade"].mean().round(1)
 
     return [
-        f"Bolsistas desistem {bolsa[1]}%, contra {bolsa[0]}% dos nao bolsistas.",
-        f"Idade media na matricula: {idade['Dropout']} anos (desistencia) contra {idade['Graduate']} (conclusao).",
+        f"Bolsistas desistem {scholarship[1]}%, contra {scholarship[0]}% dos nao bolsistas.",
+        f"Idade media na matricula: {age['Dropout']} anos (desistencia) contra {age['Graduate']} (conclusao).",
         f"Nota de ingresso media: {nota['Dropout']} (desistencia) contra {nota['Graduate']} (conclusao).",
     ]
 
