@@ -30,7 +30,7 @@ def dataClear(df):
     return df[cols].dropna()
 
 def _colsTypes(df):
-    #separacao das colunas, agora alem de somente numeria, ha tbm binarias e continuas
+    #separacao das colunas, agora alem de somente numerica, ha tbm binarias e continuas
     numerics = df.select_dtypes(include="number")
     binarys = [c for c in numerics if numerics[c].nunique() == 2]
     continuous = [c for c in numerics if c not in binarys]
@@ -48,12 +48,12 @@ def generateFindings(df):
     scholarship = givenUp.groupby(df["Scholarship holder"]).mean().round(1)
 
     age = df.groupby(target_col)["Age at enrollment"].mean().round(1)
-    nota = df.groupby(target_col)["Admission grade"].mean().round(1)
+    grade = df.groupby(target_col)["Admission grade"].mean().round(1)
 
     return [
         f"Bolsistas desistem {scholarship[1]}%, contra {scholarship[0]}% dos nao bolsistas.",
         f"Idade media na matricula: {age['Dropout']} anos (desistencia) contra {age['Graduate']} (conclusao).",
-        f"Nota de ingresso media: {nota['Dropout']} (desistencia) contra {nota['Graduate']} (conclusao).",
+        f"Nota de ingresso media: {grade['Dropout']} (desistencia) contra {grade['Graduate']} (conclusao).",
     ]
 
 
@@ -81,7 +81,7 @@ def _estatistics(brute):
         ],
         "descritivas": df[continuous].describe().round(2).to_dict(),
         "alvo": df[target_col].value_counts().to_dict(),
-        # % de evasão para cada valor (0/1) de cada coluna binária
+        #% de evasao para cada valor (0/1) de cada coluna binária
         "taxa_evasao": {c: (givenUp.groupby(df[c]).mean() * 100).round(1).to_dict() for c in binarys},
         "achados": generateFindings(df),
     }
@@ -93,7 +93,7 @@ def gerarEstatisticas():
 def gerarEstatisticasCsv(df):
     return _estatistics(df)
 
-# criando os graficos
+#criando os graficos
 
 def _save(fig, name):
     path = f"{static_folder}/name"
@@ -106,7 +106,51 @@ def _graphic(brute, sufix):
     df = dataClear(brute)
     binarys, _ = _colsTypes(df)
 
-    
+    #grafico de distribuicao: histograma nota ingresso
+    fig, ax = plt.subplots()
+    ax.hist(df["Admission grade"], bins=30)
+    ax.set_title("Distribuicao de nota de ingresso")
+    ax.set_xlabel("Nota de ingresso")
+    ax.set_ylabel("Quantidade de alunos")
+    distribution = _save(fig, f"GraficoDistribuicao{sufix}.png")
 
-    
+    #comparacao: taxa de desistencia por grupo, pelas colunas binarias
 
+    #para cada coluna de 1 e 0, calcula a porcentagem de desistencia em cada valor, 
+    #monta uma tabela com isso e a transpoe para o grafico agrupar as barras por coluna.
+    #o T troca linhas por colunas
+    taxas = pd.DataFrame({c: (df[target_col] == "Dropout").groupby(df[c]).mean() * 100 for c in binarys}).T
+
+    fig, ax = plt.subplots()
+    taxas.plot.bar(ax=ax, rot=0)
+    ax.set_title("Taxa de desistencia por grupo")
+    ax.set_xlabel("Grupo")
+    ax.set_ylabel("Taxa de desistencia (%)")
+    ax.legend(title="0 = Não / 1 = Sim")
+    comparation = _save(fig, f"GraficoComparacao{sufix}.png")
+
+    #Relacao: idade na matricula x nota de ingresso, separada pelo desfecho
+    fig, ax = plt.subplots()
+    for _class, group in df.groupby(target_col):
+        ax.scatter(group["Age at enrollment"], group["Admission grade"], s=12, alpha=0.5, label=_class)
+    ax.set_title("Relação entre idade na matrícula e nota de ingresso")
+    ax.set_xlabel("Idade na matrícula")
+    ax.set_ylabel("Nota de ingresso")
+    ax.legend()
+    relation = _save(fig, f"GraficoRelacao{sufix}.png")
+
+    return {
+        "graficoRelacao": relation,
+        "graficoComparacao": comparation,
+        "graficoDistribuicao": distribution,
+    }
+ 
+def gerarGraficos():
+    return _graphic(csvUpload(original_csv_path), "Original")
+ 
+def gerarGraficosCsv(df):
+    return _graphic(df, "Csv")
+ 
+if __name__ == "__main__":
+    print(gerarEstatisticas())
+    print(gerarGraficos())
