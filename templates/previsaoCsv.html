@@ -17,32 +17,92 @@
     <main class="previsao-csv-main">
         <h1>Com base nos dados fornecidos</h1>
         <div>
-            <h1>Estatisticas</h1>
+            <h1>Estatísticas e Gráficos Comparativos</h1>
             <div class="grid-estatisticas">
                 <div class="container-graficos">
                     <h2>Dataset Original</h2>
-                    <div class="image-container">
-                        <img src="https://observatorioobstetricobr.org/wp-content/uploads/2021/12/fig1.png" />
+                    <div class="card-estatisticas">
+                        <p><strong>Linhas (antes / depois da limpeza):</strong> {{ estatisticasOriginal.linhas_antes }} / {{ estatisticasOriginal.linhas_depois }}</p>
+                        <p><strong>Conclusão:</strong> {{ estatisticasOriginal.alvo.get('Graduate', 0) }} | <strong>Evasão:</strong> {{ estatisticasOriginal.alvo.get('Dropout', 0) }}</p>
+                        <h3>Principais Achados:</h3>
+                        <ul>
+                            {% for achado in estatisticasOriginal.achados %}
+                            <li>{{ achado }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h3>Transformações:</h3>
+                        <ul>
+                            {% for transf in estatisticasOriginal.transformacoes %}
+                            <li>{{ transf }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="image-container">
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                        <img src="{{url_for('static', filename='GraficoDistribuicaoOriginal.png')}}" />
                     </div>
                     <div class="image-container">
-                        <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
+                        <img src="{{url_for('static', filename='GraficoComparacaoOriginal.png')}}" />
+                    </div>
+                    <div class="image-container">
+                        <img src="{{url_for('static', filename='GraficoRelacaoOriginal.png')}}" />
                     </div>
                 </div>
+
                 <div class="container-graficos">
-                    <h2>Dataset Fornecido</h2>
-                    <div class="image-container">
-                        <img src="https://observatorioobstetricobr.org/wp-content/uploads/2021/12/fig1.png" />
+                    <h2>Dataset Fornecido (Modelo Logístico)</h2>
+                    <div class="card-estatisticas">
+                        <p><strong>Linhas (antes / depois da limpeza):</strong> {{ estatisticasLog.linhas_antes }} / {{ estatisticasLog.linhas_depois }}</p>
+                        <p><strong>Conclusão:</strong> {{ estatisticasLog.alvo.get('Graduate', 0) }} | <strong>Evasão:</strong> {{ estatisticasLog.alvo.get('Dropout', 0) }}</p>
+                        <h3>Principais Achados:</h3>
+                        <ul>
+                            {% for achado in estatisticasLog.achados %}
+                            <li>{{ achado }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h3>Transformações:</h3>
+                        <ul>
+                            {% for transf in estatisticasLog.transformacoes %}
+                            <li>{{ transf }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="image-container">
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                        <img src="{{url_for('static', filename='GraficoDistribuicaoLogistico.png')}}" />
                     </div>
                     <div class="image-container">
-                        <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
+                        <img src="{{url_for('static', filename='GraficoComparacaoLogistico.png')}}" />
+                    </div>
+                    <div class="image-container">
+                        <img src="{{url_for('static', filename='GraficoRelacaoLogistico.png')}}" />
+                    </div>
+                </div>
+
+                <div class="container-graficos">
+                    <h2>Dataset Fornecido (Decision Tree)</h2>
+                    <div class="card-estatisticas">
+                        <p><strong>Linhas (antes / depois da limpeza):</strong> {{ estatisticasDes.linhas_antes }} / {{ estatisticasDes.linhas_depois }}</p>
+                        <p><strong>Conclusão:</strong> {{ estatisticasDes.alvo.get('Graduate', 0) }} | <strong>Evasão:</strong> {{ estatisticasDes.alvo.get('Dropout', 0) }}</p>
+                        <h3>Principais Achados:</h3>
+                        <ul>
+                            {% for achado in estatisticasDes.achados %}
+                            <li>{{ achado }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h3>Transformações:</h3>
+                        <ul>
+                            {% for transf in estatisticasDes.transformacoes %}
+                            <li>{{ transf }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="{{url_for('static', filename='GraficoDistribuicaoDecision.png')}}" />
+                    </div>
+                    <div class="image-container">
+                        <img src="{{url_for('static', filename='GraficoComparacaoDecision.png')}}" />
+                    </div>
+                    <div class="image-container">
+                        <img src="{{url_for('static', filename='GraficoRelacaoDecision.png')}}" />
                     </div>
                 </div>
             </div>

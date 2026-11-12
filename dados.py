@@ -5,7 +5,7 @@ import pandas as pd
 matplotlib.use("Agg")
 
 static_folder = "static"
-original_csv_path = "data/data.csv"
+original_csv_path = "data/dataset.csv"
 
 target_col = "Target"
 
@@ -51,9 +51,9 @@ def generateFindings(df):
     grade = df.groupby(target_col)["Admission grade"].mean().round(1)
 
     return [
-        f"Bolsistas desistem {scholarship[1]}%, contra {scholarship[0]}% dos nao bolsistas.",
-        f"Idade media na matricula: {age['Dropout']} anos (desistencia) contra {age['Graduate']} (conclusao).",
-        f"Nota de ingresso media: {grade['Dropout']} (desistencia) contra {grade['Graduate']} (conclusao).",
+        f"Bolsistas desistem {scholarship.get(1, 0.0)}%, contra {scholarship.get(0, 0.0)}% dos nao bolsistas.",
+        f"Idade media na matricula: {age.get('Dropout', 0.0)} anos (desistencia) contra {age.get('Graduate', 0.0)} (conclusao).",
+        f"Nota de ingresso media: {grade.get('Dropout', 0.0)} (desistencia) contra {grade.get('Graduate', 0.0)} (conclusao).",
     ]
 
 
@@ -96,7 +96,7 @@ def gerarEstatisticasCsv(df):
 #criando os graficos
 
 def _save(fig, name):
-    path = f"{static_folder}/name"
+    path = f"{static_folder}/{name}"
     fig.tight_layout()
     fig.savefig(path, dpi=120)
     plt.close(fig)
@@ -120,6 +120,7 @@ def _graphic(brute, sufix):
     #monta uma tabela com isso e a transpoe para o grafico agrupar as barras por coluna.
     #o T troca linhas por colunas
     taxas = pd.DataFrame({c: (df[target_col] == "Dropout").groupby(df[c]).mean() * 100 for c in binarys}).T
+    taxas = taxas.rename(index={"Scholarship holder": "Bolsista"})
 
     fig, ax = plt.subplots()
     taxas.plot.bar(ax=ax, rot=0)
@@ -130,9 +131,10 @@ def _graphic(brute, sufix):
     comparation = _save(fig, f"GraficoComparacao{sufix}.png")
 
     #Relacao: idade na matricula x nota de ingresso, separada pelo desfecho
+    rotulos_alvo = {"Dropout": "Evasão", "Graduate": "Conclusão"}
     fig, ax = plt.subplots()
     for _class, group in df.groupby(target_col):
-        ax.scatter(group["Age at enrollment"], group["Admission grade"], s=12, alpha=0.5, label=_class)
+        ax.scatter(group["Age at enrollment"], group["Admission grade"], s=12, alpha=0.5, label=rotulos_alvo.get(_class, _class))
     ax.set_title("Relação entre idade na matrícula e nota de ingresso")
     ax.set_xlabel("Idade na matrícula")
     ax.set_ylabel("Nota de ingresso")
@@ -148,8 +150,8 @@ def _graphic(brute, sufix):
 def gerarGraficos():
     return _graphic(csvUpload(original_csv_path), "Original")
  
-def gerarGraficosCsv(df):
-    return _graphic(df, "Csv")
+def gerarGraficosCsv(df, sufix="Csv"):
+    return _graphic(df, sufix)
  
 if __name__ == "__main__":
     print(gerarEstatisticas())
