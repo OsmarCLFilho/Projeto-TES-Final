@@ -41,15 +41,38 @@ def preverResultadoCsv():
 
     try:
         dataframe = pd.read_csv(caminho_arquivo, sep=None, engine='python')
+        dataframe.columns = dataframe.columns.str.strip()
         colunas_necessarias = ["Admission grade", "Age at enrollment", "Scholarship holder"]
         if not all(col in dataframe.columns for col in colunas_necessarias):
             return render_template(
                 'form.html',
                 erro="O CSV deve conter as colunas: 'Admission grade', 'Age at enrollment' e 'Scholarship holder'."
             )
-        X = dataframe[colunas_necessarias].dropna()
+        X = dataframe[colunas_necessarias].dropna().copy()
         if X.empty:
             return render_template('form.html', erro="O arquivo CSV não possui linhas válidas para previsão.")
+
+        for col in colunas_necessarias:
+            X[col] = pd.to_numeric(X[col], errors='coerce')
+
+        if X.isna().any().any():
+            return render_template(
+                'form.html',
+                erro="O CSV contém valores incompatíveis (texto ou formato inválido onde são esperados números)."
+            )
+
+        notas_invalidas = (X["Admission grade"] < 0) | (X["Admission grade"] > 200)
+        idades_invalidas = (X["Age at enrollment"] < 14) | (X["Age at enrollment"] > 100) | (X["Age at enrollment"] % 1 != 0)
+        bolsas_invalidas = ~X["Scholarship holder"].isin([0, 1])
+
+        if notas_invalidas.any() or idades_invalidas.any() or bolsas_invalidas.any():
+            return render_template(
+                'form.html',
+                erro="O CSV contém valores impossíveis: 'Admission grade' deve estar entre 0 e 200, 'Age at enrollment' inteiro entre 14 e 100, e 'Scholarship holder' deve ser 0 ou 1."
+            )
+
+        X["Age at enrollment"] = X["Age at enrollment"].astype(int)
+        X["Scholarship holder"] = X["Scholarship holder"].astype(int)
     except Exception:
         return render_template('form.html', erro="Erro ao ler o arquivo CSV. Verifique se o arquivo está formatado corretamente.")
     
@@ -91,13 +114,23 @@ def preverResultados():
         return render_template('form.html', erro="Nenhum dado do formulário foi recebido.")
 
     try:
-        dataframe = pd.DataFrame([{
-            "Admission grade": float(data.get("admission_grade", "")),
-            "Age at enrollment": int(data.get("age_at_enrollment", "")),
-            "Scholarship holder": int(data.get("scholarship_holder", ""))
-        }])
+        nota = float(data.get("admission_grade", ""))
+        idade = int(data.get("age_at_enrollment", ""))
+        bolsa = int(data.get("scholarship_holder", ""))
     except (ValueError, TypeError):
         return render_template('form.html', erro="Preencha todos os campos do formulário com valores válidos.")
+
+    if not (0 <= nota <= 200) or not (14 <= idade <= 100) or bolsa not in (0, 1):
+        return render_template(
+            'form.html',
+            erro="Valores fora do limite permitido: Nota deve ser de 0 a 200, Idade de 14 a 100 e Condição de Bolsista 0 ou 1."
+        )
+
+    dataframe = pd.DataFrame([{
+        "Admission grade": nota,
+        "Age at enrollment": idade,
+        "Scholarship holder": bolsa
+    }])
 
     previsaoLogistico = modeloLogistico.predict(dataframe)
     previsaoDecision = modeloDecision.predict(dataframe)
