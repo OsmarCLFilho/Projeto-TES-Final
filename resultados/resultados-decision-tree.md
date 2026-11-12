@@ -11,26 +11,29 @@
   - Possui bolsa de estudos.
 - **Variável de saída (y):** Situação acadêmica.
 - **Divisão dos dados:** 80% para treinamento e 20% para teste.
-- **Estado aleatório:** 42.
-- 
+- **Estado aleatório:** 404.
+- **Profundidade máxima:** 5.
+
 ## 2. Resultados da avaliação
 
-- **Taxa de acerto (Acurácia):** 64,33%.
+- **Acurácia no treinamento:** 71,87%.
+- **Taxa de acerto no teste (Acurácia):** 69,28%.
+- **Baseline:** 60,88%.
 
 ### Matriz de confusão
 
 | | Previu abandono | Previu conclusão |
 |---|---:|---:|
-| Era abandono | 178 | 99 |
-| Era conclusão | 160 | 289 |
+| Era abandono | 143 | 141 |
+| Era conclusão | 82 | 360 |
 
 ### Métricas de avaliação
 
 | Métrica | Abandono | Conclusão |
 |---|---:|---:|
-| Precisão | 0,53 | 0,74 |
-| Sensibilidade | 0,64 | 0,64 |
-| Medida F1 | 0,58 | 0,69 |
+| Precisão | 0,64 | 0,72 |
+| Sensibilidade | 0,50 | 0,81 |
+| Medida F1 | 0,56 | 0,76 |
 
 ## 3. O que é o Índice Gini?
 
@@ -48,6 +51,10 @@ No nosso modelo, o Índice Gini ajuda a separar os estudantes nas categorias de 
 
 ## 4. Observação
 
-O modelo foi treinado e avaliado utilizando a divisão de 80% para treinamento e 20% para teste.
+O modelo foi treinado utilizando 80% dos dados e avaliado com os 20% restantes.
+
+A acurácia no teste foi de 69,28%, enquanto o baseline apresentou 60,88%. Isso significa que a Árvore de Decisão teve um resultado melhor do que simplesmente prever a classe mais comum.
+
+A acurácia de treinamento foi de 71,87%, um resultado próximo ao obtido no teste.
 
 Esses resultados serão utilizados posteriormente para comparar a Árvore de Decisão com outro modelo.
