@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import joblib
@@ -9,7 +10,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 
-
+os.makedirs("resultados", exist_ok=True)
 df = pd.read_csv('data/dataset.csv', sep=";")
 
 df = df[df["Target"] != "Enrolled"]
@@ -22,13 +23,19 @@ y = df["Target"]
 
 
 X_treino, X_teste, y_treino, y_teste = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=404, stratify=y
 )
 
 ## -- Cria modelo
-modelo = DecisionTreeClassifier(random_state=42)
+modelo = DecisionTreeClassifier(random_state=404, max_depth=5)
 ## -- Treina
 modelo.fit(X_treino, y_treino)
+
+## -- Verifica a acurácia nos dados de treinamento
+previsoes_treino = modelo.predict(X_treino)
+acuracia_treino = accuracy_score(y_treino, previsoes_treino)
+
+print("Acurácia no Treinamento:", acuracia_treino)
 
 ## -- Preve
 previsoes = modelo.predict(X_teste)
@@ -37,6 +44,11 @@ previsoes = modelo.predict(X_teste)
 acuracia = accuracy_score(y_teste, previsoes)
 print("Acurácia:", acuracia)
 
+## -- Calcula o baseline, utilizando a classe mais comum como previsão para todos os alunos.
+classe_mais_comum = y_treino.value_counts().idxmax()
+previsoes_baseline = [classe_mais_comum] * len(y_teste)
+acuracia_baseline = accuracy_score(y_teste, previsoes_baseline)
+print ("Acurácia do BaseLine: ", acuracia_baseline)
 
 ## -- Mostra onde acertou e errou
 matriz = confusion_matrix(y_teste, previsoes)
