@@ -32,6 +32,12 @@ modelo = LogisticRegression(random_state=404)
 ## -- Treina
 modelo.fit(X_treino, y_treino)
 
+## -- Verifica a acurácia nos dados de treinamento
+previsoes_treino = modelo.predict(X_treino)
+acuracia_treino = accuracy_score(y_treino, previsoes_treino)
+
+print("Acurácia no Treinamento:", acuracia_treino)
+
 ## -- Preve
 previsoes = modelo.predict(X_teste)
 
