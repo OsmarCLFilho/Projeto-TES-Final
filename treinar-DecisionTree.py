@@ -3,6 +3,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import joblib
+from dados import csvUpload, dataClear
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.tree import plot_tree
@@ -11,16 +12,16 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 
 os.makedirs("resultados", exist_ok=True)
-df = pd.read_csv('data/dataset.csv', sep=";")
+# Carregar e tratar os dados
+df = csvUpload("data/dataset.csv")
+df = dataClear(df)
 
-df = df[df["Target"] != "Enrolled"]
-print(df.loc[:, "Target"].value_counts())
+print(df["Target"].value_counts())
 print(df.shape)
 
-##      nota de admissao    idade ao entrar     se possui bolsa
+## Separar as variáveis de entrada e o resultado
 X = df[["Admission grade", "Age at enrollment", "Scholarship holder"]]
 y = df["Target"]
-
 
 X_treino, X_teste, y_treino, y_teste = train_test_split(
     X, y, test_size=0.2, random_state=404, stratify=y
@@ -88,7 +89,6 @@ ax.set_title("Matriz de Confusão")
 plt.tight_layout()
 
 plt.savefig("resultados/decisiontree_confusao.png", dpi=300, bbox_inches="tight")
-plt.show(block=False)
 
 # Gera um relatório com métricas de avaliação do modelo,
 # mostrando precisão, recall, F1-score e quantidade de exemplos por categoria.
@@ -101,7 +101,7 @@ arvore = plot_tree(
     feature_names=["Nota de admissão", "Idade ao entrar", "Possui bolsa"],
     class_names=["Abandono", "Conclusão"],
     filled=True,
-    max_depth=2, ## Limita a profundidade da visualização da árvore a 2 níveis.
+    max_depth=5, ## Limita a profundidade da visualização da árvore a 2 níveis.
     fontsize=10
 )
 
@@ -119,7 +119,6 @@ for texto in plt.gca().texts:
 plt.tight_layout()
 # Salvar imagem
 plt.savefig("resultados/arvore_decisao.png", dpi=300, bbox_inches="tight")
-plt.show()
 
 # Salva o modelo treinado em um arquivo para utilizá-lo posteriormente no Flask.
 joblib.dump(modelo, "modelo_decision_tree.pkl")
