@@ -26,6 +26,15 @@
             <label class="form-subtitle">
                 Enviar arquivo CSV para previsão em lote
             </label>
+            <div class="info-csv">
+                <p><strong>Formato esperado do arquivo CSV:</strong></p>
+                <p>O arquivo deve estar em formato <code>.csv</code> (separado por <code>,</code> ou <code>;</code>) e conter obrigatoriamente as seguintes colunas:</p>
+                <ul>
+                    <li><code>Admission grade</code>: Nota de ingresso (numérico de <strong>0 a 200</strong>, ex: <code>142.5</code>)</li>
+                    <li><code>Age at enrollment</code>: Idade na matrícula (inteiro de <strong>14 a 100</strong>, ex: <code>19</code>)</li>
+                    <li><code>Scholarship holder</code>: Condição de bolsista (binário: <strong>1</strong> = Bolsista, <strong>0</strong> = Não bolsista)</li>
+                </ul>
+            </div>
             <div class="form-group">
                 <input accept=".csv" class="input-arquivo" id="arquivo" type="file" name="arquivo" />
                 <button type="button" id="limparArquivo" class="button" style="display: none; margin-top: 0.5rem; padding: 0.5rem;">
