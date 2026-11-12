@@ -30,14 +30,13 @@
                 <a href="{{url_for('formEnvio')}}" class="button">Acessar o sistema</a>
             </div>
             <div class="image-container">
-                <img src="" />
+                <img src="{{url_for('static', filename='GraficoDistribuicaoOriginal.png')}}" />
             </div>
             <div class="image-container">
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAm2wG9Id_QGUlAN8GwAX8PbCL07TZ9YzuD7uFfBM10xcjLQq5jJB-HoZw&s=10" />
+                <img src="{{url_for('static', filename='GraficoComparacaoOriginal.png')}}" />
             </div>
             <div class="image-container">
-                <img src="https://fernandafperes.com.br/blog/reconstruindo-grafico-pizza/cover.png" />
+                <img src="{{url_for('static', filename='GraficoRelacaoOriginal.png')}}" />
             </div>
         </div>
     </main>

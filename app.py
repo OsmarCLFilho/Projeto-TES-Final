@@ -3,6 +3,7 @@ import random
 import os
 import pandas as pd
 import joblib 
+import dados
 
 UPLOAD_FOLDER = 'uploads'
 
@@ -52,19 +53,33 @@ def preverResultadoCsv():
     except Exception:
         return render_template('form.html', erro="Erro ao ler o arquivo CSV. Verifique se o arquivo está formatado corretamente.")
     
-    # Chamar a função de gerar graficos passando caminho_arquivo
-
 
     previsaoLogistico = modeloLogistico.predict(X)
     previsaoDecision = modeloDecision.predict(X)
 
-    dados = {
-        "graficoRelacao": "/graficoRelacaoCsv",
-        "graficoComparacao": "/graficoComparacaoCsv",
-        "graficoDistribuicao": "/graficoDistribuicaoCsv",
-    }
+    dfLog = X.copy()
+    dfLog["Target"] = previsaoLogistico
 
-    return render_template('previsaoCsv.html', previsaoDes = previsaoDecision, previsaoLog = previsaoLogistico, dados=dados)
+    dfDes = X.copy()
+    dfDes["Target"] = previsaoDecision
+
+    graficosLog = dados.gerarGraficosCsv(dfLog, "Logistico")
+    graficosDes = dados.gerarGraficosCsv(dfDes, "Decision")
+
+    estatisticasOriginal = dados.gerarEstatisticas()
+    estatisticasLog = dados.gerarEstatisticasCsv(dfLog)
+    estatisticasDes = dados.gerarEstatisticasCsv(dfDes)
+
+    return render_template(
+        'previsaoCsv.html',
+        previsaoDes=previsaoDecision,
+        previsaoLog=previsaoLogistico,
+        graficosLog=graficosLog,
+        graficosDes=graficosDes,
+        estatisticasOriginal=estatisticasOriginal,
+        estatisticasLog=estatisticasLog,
+        estatisticasDes=estatisticasDes,
+    )
 
 @app.post("/previsao")
 def preverResultados():
