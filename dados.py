@@ -1,8 +1,7 @@
 import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
-
-matplotlib.use("Agg")
 
 static_folder = "static"
 original_csv_path = "data/dataset.csv"
@@ -25,8 +24,10 @@ def csvUpload(path):
 
 
 def dataClear(df):
-    #remocao do "Enrolled", duplicatas e ausencias
-    df = df[df[target_col] != "Enrolled"].drop_duplicates()
+    #remocao do "Enrolled" e ausencias
+    #agora nao esta mais removendo duplicatas, pq como nao tem id linhas iguais podem ser
+    #alunos diferentes
+    df = df[df[target_col] != "Enrolled"]
     return df[cols].dropna()
 
 def _colsTypes(df):
@@ -62,7 +63,6 @@ def _estatistics(brute):
     binarys, continuous = _colsTypes(df)
     givenUp = df[target_col] == "Dropout"
     stillIn = int((brute[target_col] == "Enrolled").sum())
-    duplicates = int(brute.duplicated().sum())
     #total de celulas vazias (NaN) nas colunas usadas
     #(isna marca as vazias, sum soma por coluna, sum soma tudo)
     missing = int(brute[cols].isna().sum().sum())
@@ -75,7 +75,6 @@ def _estatistics(brute):
         #Registro das transformacoe aplicadas em dataClear
         "transformacoes": [
             f"{stillIn} linhas 'Enrolled' removidas (aluno ainda matriculado, sem desfecho definido)",
-            f"{duplicates} linhas duplicadas removidas",
             f"{missing} valores ausentes encontrados (linhas com ausentes sao removidas)",
             f"{brute.shape[1]} colunas reduzidas para as {df.shape[1]} usadas na analise",
         ],
