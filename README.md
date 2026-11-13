@@ -34,7 +34,7 @@ Aplicação web em Flask que analisa dados de estudantes com Pandas, gera gráfi
 - **Fonte:** *Predict Students' Dropout and Academic Success*, UCI Machine Learning Repository
   (<https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success>).
   Dados de estudantes de uma instituição de ensino superior portuguesa.
-  **PENDENTE:** conferir a citação completa e a licença na página do UCI.
+  **Citação:** M.V.Martins, D. Tolledo, J. Machado, L. M.T. Baptista, V.Realinho. (2021) "Early prediction of student’s performance in higher education: a case study" Trends and Applications in Information Systems and Technologies, vol.1, in Advances in Intelligent Systems and Computing series. Springer. DOI: 10.1007/978-3-030-72657-7_16
 - **Arquivo no repositório:** `data/dataset.csv` (separador `;`, 4424 linhas × 37 colunas).
 - **Classes originais:** Graduate (2209), Dropout (1421) e Enrolled (794).
 - **Recorte usado:** apenas `Dropout` e `Graduate`, como pede a especificação. As 794 linhas `Enrolled` (alunos ainda matriculados, sem desfecho definido) são descartadas, restando **3630 registros**.
@@ -147,9 +147,8 @@ Gerados por `gerarGraficos()` (base original) e `gerarGraficosCsv()` (base envia
 
 | Tipo | Gráfico | Como ler |
 |---|---|---|
-| Distribuição | Histograma da nota de ingresso | **PENDENTE:** escrever a interpretação (concentração, dispersão, extremos) |
-| Comparação | Taxa de evasão por bolsista | **PENDENTE:** escrever a interpretação (diferença entre grupos e desequilíbrios) |
-| Relação | Idade × nota de ingresso, por desfecho | **PENDENTE:** escrever a interpretação (relação com a pergunta do projeto) |
+| Distribuição | Histograma da nota de ingresso | Distribuição concentrada e levemente assimétrica à direita. As notas vão de 95 a 190, com média de 127,3 e mediana de 126,5. Cerca de 75% dos alunos estão entre 110 e 140. Notas acima de 160 são raras (≈2%), o que forma a cauda à direita. Os picos isolados (100, 120, 140, 150) sugerem que muitas notas são arredondadas. |
+| Comparação | Taxa de evasão por bolsista | A evasão é de 48,4% entre não bolsistas e 13,8% entre bolsistas, uma diferença de mais de 3 vezes. Os grupos são desiguais: só 26,7% dos alunos (969 de 3630) são bolsistas. A diferença não prova causa, pois a bolsa pode ser concedida a alunos com perfil diferente. |A maioria dos alunos entra entre 17 e 22 anos (68%), e os pontos se acumulam à esquerda. Acima de 25 anos aparecem proporcionalmente mais evasões: 44,4% dos evadidos entram com 25 anos ou mais, contra 15,6% dos concluintes. Na vertical (nota), as duas cores se misturam em todas as faixas, então a nota não separa os desfechos. Isso explica por que os modelos acertam só ≈69%. Há muita sobreposição de pontos, e o gráfico não mostra a densidade.|
 
 ## 7. Variáveis X e y
 
@@ -207,14 +206,13 @@ As imagens estão em `resultados/decisiontree_confusao.png` e `resultados/logist
 
 ## 9. Escolha final do modelo
 
-**PENDENTE: DECIDIR O QUE FAZER.** A aplicação hoje mostra os dois modelos lado a lado.
+**Modelo escolhido: Árvore de Decisão.**
 
-Elementos para a justificativa:
+As acurácias no teste são idênticas (69,28%), então o desempate foi o tipo de erro. O erro mais custoso é o falso negativo (aluno que evade, mas o modelo prevê conclusão). A Árvore tem sensibilidade de 0,50 para evasão, contra 0,41 da Regressão Logística, e deixa passar 141 evadidos, contra 168.
 
-- Como as acurácias são idênticas, o critério de desempate deve ser o **tipo de erro**. Se o objetivo é identificar alunos em risco, vale priorizar a sensibilidade da evasão, em que a **Árvore de Decisão (0,50)** supera a **Regressão Logística (0,41)**.
+Trade-offs aceitos:
 - A Regressão Logística tem precisão maior para evasão (0,68 contra 0,64) e é mais estável entre treino e teste.
-- A Árvore é mais fácil de explicar (`resultados/arvore_decisao.png`), mas é mais sensível a overfitting.
-*Escolhemos a Árvore de Decisão como modelo final porque, com acurácia igual à da Regressão Logística, ela identifica mais alunos que realmente evadem (sensibilidade de 0,50 contra 0,41), que é o erro mais custoso neste problema.*
+- A Árvore tem mais risco de overfitting, mitigado por `max_depth=5` (diferença de 2,6 pontos entre treino e teste), e é mais fácil de explicar (`resultados/arvore_decisao.png`).
 
 ## 10. Integração com o Flask
 
@@ -225,7 +223,7 @@ Elementos para a justificativa:
 | `POST /previsao` | Valida os campos, monta uma linha com as mesmas colunas de X e mostra a previsão dos dois modelos |
 | `POST /previsaoCsv` | Valida o CSV, prevê para cada linha, gera estatísticas e gráficos da base enviada e mostra a tabela de previsões |
 
-- Os modelos são carregados com `joblib` na inicialização. **Modelos treinados com `data/dataset.csv`, 3630 registros, versão do commit da entrega.** **PENDENTE:** registrar o hash do commit entregue.
+- Os modelos são carregados com `joblib` na inicialização. **Modelos treinados com `data/dataset.csv`, 3630 registros**
 - O CSV enviado atualiza as análises e os gráficos. O modelo permanece fixo.
 - Nas estatísticas e gráficos da base enviada, a coluna `Target` é a **previsão do modelo**, não um desfecho real (o usuário não informa o desfecho).
 
@@ -248,8 +246,7 @@ Elementos para a justificativa:
 | Osmar Cardoso | Regressão Logística (treino, avaliação e relatório), revisão e integração |
 | Pedro Volpatto | Aplicação Flask, validações, templates HTML e estilo |
 
-## 13. Fontes, ferramentas e uso de IA
+## 13. Ferramentas utilizadas
 
 - **Dataset:** UCI Machine Learning Repository (ver seção 2).
 - **Bibliotecas:** Flask, Pandas, NumPy, Matplotlib, scikit-learn e joblib (versões em `requirements.txt`).
-- **Referência da disciplina:** especificação do Trabalho Final (slides da disciplina).
