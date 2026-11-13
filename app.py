@@ -1,3 +1,14 @@
+##                                               ##
+# Atividade Final - Tópicos Especiais em Software #
+##                                               ##
+
+# https://github.com/OsmarCLFilho/Projeto-TES-Final
+
+# João Pellison  - Árvore de Decisão (treino, avaliação e relatório)
+# Matheus Camilo - Limpeza, estatísticas e gráficos com base no dataset do tema
+# Osmar Cardoso  - Regressão Logística (treino, avaliação e relatório), revisão e integração
+# Pedro Volpatto - Aplicação Flask, validações, templates HTML e estilo
+
 from flask import Flask, render_template, url_for, request, redirect
 import random
 import os
