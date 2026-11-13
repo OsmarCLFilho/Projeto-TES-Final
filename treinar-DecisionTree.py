@@ -94,7 +94,7 @@ plt.savefig("resultados/decisiontree_confusao.png", dpi=300, bbox_inches="tight"
 # mostrando precisão, recall, F1-score e quantidade de exemplos por categoria.
 print(classification_report(y_teste, previsoes))
 
-plt.figure(figsize=(18, 10), dpi=150)
+plt.figure(figsize=(50, 35), dpi=150)
 
 arvore = plot_tree(
     modelo,
@@ -102,7 +102,7 @@ arvore = plot_tree(
     class_names=["Abandono", "Conclusão"],
     filled=True,
     max_depth=5, ## Limita a profundidade da visualização da árvore a 2 níveis.
-    fontsize=10
+    fontsize=8
 )
 
 # Traduz as informações exibidas nos blocos
