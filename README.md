@@ -1,8 +1,18 @@
 # Eai, vai trancar? — Previsão de evasão universitária
 
 Trabalho Final de **Tópicos Especiais em Software**.
-Aplicação web em Flask que analisa dados de estudantes com Pandas, gera gráficos e prevê **evasão ou conclusão** do curso com modelos de aprendizado supervisionado (scikit-learn).
+Aplicação web em Flask que analisa dados de estudantes com Pandas, gera gráficos e prevê **evasão ou conclusão** do curso com modelos de aprendizado supervisionado (scikit-learn)
 
+Link para acesso ao repositório: https://github.com/OsmarCLFilho/Projeto-TES-Final.
+
+## Participação de cada integrante
+
+| Integrante | Responsabilidades |
+|---|---|
+| João Pellison | Árvore de Decisão (treino, avaliação e relatório) |
+| Matheus Camilo | Limpeza, estatísticas e gráficos com base no dataset do tema |
+| Osmar Cardoso | Regressão Logística (treino, avaliação e relatório), revisão e integração |
+| Pedro Volpatto | Aplicação Flask, validações, templates HTML e estilo |
 
 ## Sumário
 
@@ -17,8 +27,7 @@ Aplicação web em Flask que analisa dados de estudantes com Pandas, gera gráfi
 9. [Escolha final do modelo](#9-escolha-final-do-modelo)
 10. [Integração com o Flask](#10-integração-com-o-flask)
 11. [Limitações](#11-limitações)
-12. [Participação de cada integrante](#12-participação-de-cada-integrante)
-13. [Fontes, ferramentas e uso de IA](#13-fontes-ferramentas-e-uso-de-ia)
+12. [Fontes, ferramentas e uso de IA](#12-fontes-ferramentas-e-uso-de-ia)
 
 ---
 
@@ -148,7 +157,10 @@ Gerados por `gerarGraficos()` (base original) e `gerarGraficosCsv()` (base envia
 | Tipo | Gráfico | Como ler |
 |---|---|---|
 | Distribuição | Histograma da nota de ingresso | Distribuição concentrada e levemente assimétrica à direita. As notas vão de 95 a 190, com média de 127,3 e mediana de 126,5. Cerca de 75% dos alunos estão entre 110 e 140. Notas acima de 160 são raras (≈2%), o que forma a cauda à direita. Os picos isolados (100, 120, 140, 150) sugerem que muitas notas são arredondadas. |
-| Comparação | Taxa de evasão por bolsista | A evasão é de 48,4% entre não bolsistas e 13,8% entre bolsistas, uma diferença de mais de 3 vezes. Os grupos são desiguais: só 26,7% dos alunos (969 de 3630) são bolsistas. A diferença não prova causa, pois a bolsa pode ser concedida a alunos com perfil diferente. |A maioria dos alunos entra entre 17 e 22 anos (68%), e os pontos se acumulam à esquerda. Acima de 25 anos aparecem proporcionalmente mais evasões: 44,4% dos evadidos entram com 25 anos ou mais, contra 15,6% dos concluintes. Na vertical (nota), as duas cores se misturam em todas as faixas, então a nota não separa os desfechos. Isso explica por que os modelos acertam só ≈69%. Há muita sobreposição de pontos, e o gráfico não mostra a densidade.|
+| Comparação | Taxa de evasão por bolsista | A evasão é de 48,4% entre não bolsistas e 13,8% entre bolsistas, uma diferença de mais de 3 vezes. Os grupos são desiguais: só 26,7% dos alunos (969 de 3630) são bolsistas. A diferença não prova causa, pois a bolsa pode ser concedida a alunos com perfil diferente.|
+| Relação | Idade × nota de ingresso, por desfecho | A maioria dos alunos entra entre 17 e 22 anos (68%), e os pontos se acumulam à esquerda. Acima de 25 anos aparecem proporcionalmente mais evasões: 44,4% dos evadidos entram com 25 anos ou mais, contra 15,6% dos concluintes. Na vertical (nota), as duas cores se misturam em todas as faixas, então a nota não separa os desfechos. Isso explica por que os modelos acertam só ≈69%. Há muita sobreposição de pontos, e o gráfico não mostra a densidade.|
+
+
 
 ## 7. Variáveis X e y
 
@@ -237,16 +249,8 @@ Trade-offs aceitos:
 - **Arquivos compartilhados:** os gráficos do upload têm nome fixo (`GraficoRelacaoLogistico.png` etc.), então dois usuários ao mesmo tempo sobrescrevem um ao outro. O upload é salvo em `uploads/` com o nome original.
 - **Servidor de desenvolvimento:** `app.run(debug=True)`, sem uso em produção.
 
-## 12. Participação de cada integrante
 
-| Integrante | Responsabilidades |
-|---|---|
-| João Pellison | Árvore de Decisão (treino, avaliação e relatório) |
-| Matheus Camilo | Limpeza, estatísticas e gráficos com base no dataset do tema |
-| Osmar Cardoso | Regressão Logística (treino, avaliação e relatório), revisão e integração |
-| Pedro Volpatto | Aplicação Flask, validações, templates HTML e estilo |
-
-## 13. Ferramentas utilizadas
+## 12. Ferramentas utilizadas
 
 - **Dataset:** UCI Machine Learning Repository (ver seção 2).
 - **Bibliotecas:** Flask, Pandas, NumPy, Matplotlib, scikit-learn e joblib (versões em `requirements.txt`).
