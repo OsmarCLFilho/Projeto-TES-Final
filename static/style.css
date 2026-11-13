@@ -375,3 +375,116 @@ select:disabled {
         text-align: center;
     }
 }
+
+
+.grafico-card {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.grafico-card img {
+    box-shadow: none;
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 0.75rem;
+}
+
+.grafico-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #1E293B;
+    line-height: 1.5;
+    text-align: left;
+    width: 100%;
+
+    h3 {
+        font-size: 1.25rem;
+        color: #0F172A;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: #334155;
+    }
+
+    code {
+        background-color: #F1F5F9;
+        padding: 0.1rem 0.35rem;
+        border-radius: 0.25rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+    }
+}
+
+.modelo-escolhido-coluna,
+.modelo-escolhido-box {
+    background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%);
+    border: 3px solid #10B981;
+    border-radius: 0.85rem;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.28);
+    position: relative;
+}
+
+.modelo-escolhido-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.badge-escolhido {
+    display: inline-block;
+    background-color: #10B981;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.destaque-modelo {
+    background-color: #ECFDF5;
+    border: 1px solid #10B981;
+    border-left: 5px solid #059669;
+    color: #064E3B;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    line-height: 1.45;
+
+    h3 {
+        font-size: 1.05rem;
+        color: #047857;
+    }
+
+    p {
+        font-size: 0.92rem;
+    }
+}
+
+.nota-melhor-modelo {
+    width: 90%;
+    margin: 0.5rem auto;
+    padding: 0.85rem 1rem;
+    background-color: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    border-left: 5px solid #059669;
+    border-radius: 0.5rem;
+    color: #064E3B;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    text-align: left;
+}

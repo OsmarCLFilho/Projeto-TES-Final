@@ -181,8 +181,13 @@
                     </div>
                 </div>
 
-                <div class="container-graficos">
+                <div class="container-graficos modelo-escolhido-coluna">
+                    <span class="badge-escolhido">MELHOR MODELO</span>
                     <h2>Dataset Fornecido (Decision Tree)</h2>
+                    <div class="destaque-modelo">
+                        <h3>Escolha do Modelo: Árvore de Decisão</h3>
+                        <p>Escolhemos a Árvore de Decisão como modelo final porque, com acurácia igual à da Regressão Logística, ela identifica mais alunos que realmente evadem (sensibilidade de 0,50 contra 0,41), que é o erro mais custoso neste problema</p>
+                    </div>
                     <div class="card-estatisticas">
                         <p><strong>Registros (antes / depois da limpeza):</strong> {{ estatisticasDes.linhas_antes }} / {{ estatisticasDes.linhas_depois }} | <strong>Colunas analisadas:</strong> {{ estatisticasDes.tipos | length }}</p>
                         <p><strong>Conclusão:</strong> {{ estatisticasDes.alvo.get('Graduate', 0) }} | <strong>Evasão:</strong> {{ estatisticasDes.alvo.get('Dropout', 0) }}</p>
@@ -290,8 +295,12 @@
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div class="modelo-escolhido-box">
+                <span class="badge-escolhido">MELHOR MODELO</span>
                 <h3>Modelo Decision Tree</h3>
+                <p class="nota-melhor-modelo">
+                    Escolhemos a Árvore de Decisão como modelo final porque, com acurácia igual à da Regressão Logística, ela identifica mais alunos que realmente evadem (sensibilidade de 0,50 contra 0,41), que é o erro mais custoso neste problema
+                </p>
                 <table>
                     <thead>
                         <tr>
