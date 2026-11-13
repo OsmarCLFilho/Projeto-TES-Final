@@ -31,30 +31,32 @@
                             {% endfor %}
                         </ul>
                         <h3>Estatísticas Descritivas:</h3>
-                        <table class="tabela-mini">
-                            <thead>
-                                <tr>
-                                    <th>Variável</th>
-                                    <th>Média</th>
-                                    <th>Desvio</th>
-                                    <th>Mín</th>
-                                    <th>Mediana</th>
-                                    <th>Máx</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for col, stats in estatisticasOriginal.descritivas.items() %}
-                                <tr>
-                                    <td>{{ col }}</td>
-                                    <td>{{ stats['mean'] }}</td>
-                                    <td>{{ stats['std'] }}</td>
-                                    <td>{{ stats['min'] }}</td>
-                                    <td>{{ stats['50%'] }}</td>
-                                    <td>{{ stats['max'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tabela-scroll">
+                            <table class="tabela-mini">
+                                <thead>
+                                    <tr>
+                                        <th>Variável</th>
+                                        <th>Média</th>
+                                        <th>Desvio</th>
+                                        <th>Mín</th>
+                                        <th>Mediana</th>
+                                        <th>Máx</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for col, stats in estatisticasOriginal.descritivas.items() %}
+                                    <tr>
+                                        <td>{{ col }}</td>
+                                        <td>{{ stats['mean'] }}</td>
+                                        <td>{{ stats['std'] }}</td>
+                                        <td>{{ stats['min'] }}</td>
+                                        <td>{{ stats['50%'] }}</td>
+                                        <td>{{ stats['max'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                         <h3>Principais Achados:</h3>
                         <ul>
                             {% for achado in estatisticasOriginal.achados %}
@@ -68,26 +70,28 @@
                             {% endfor %}
                         </ul>
                         <h3>Amostra (5 primeiras linhas):</h3>
-                        <table class="tabela-mini">
-                            <thead>
-                                <tr>
-                                    <th>Nota</th>
-                                    <th>Idade</th>
-                                    <th>Bolsa</th>
-                                    <th>Alvo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for linha in estatisticasOriginal.amostra %}
-                                <tr>
-                                    <td>{{ linha['Admission grade'] }}</td>
-                                    <td>{{ linha['Age at enrollment'] }}</td>
-                                    <td>{{ linha['Scholarship holder'] }}</td>
-                                    <td>{{ linha['Target'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tabela-scroll">
+                            <table class="tabela-mini">
+                                <thead>
+                                    <tr>
+                                        <th>Nota</th>
+                                        <th>Idade</th>
+                                        <th>Bolsa</th>
+                                        <th>Alvo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for linha in estatisticasOriginal.amostra %}
+                                    <tr>
+                                        <td>{{ linha['Admission grade'] }}</td>
+                                        <td>{{ linha['Age at enrollment'] }}</td>
+                                        <td>{{ linha['Scholarship holder'] }}</td>
+                                        <td>{{ linha['Target'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="image-container">
                         <img src="{{url_for('static', filename='GraficoDistribuicaoOriginal.png')}}" />
@@ -112,30 +116,32 @@
                             {% endfor %}
                         </ul>
                         <h3>Estatísticas Descritivas:</h3>
-                        <table class="tabela-mini">
-                            <thead>
-                                <tr>
-                                    <th>Variável</th>
-                                    <th>Média</th>
-                                    <th>Desvio</th>
-                                    <th>Mín</th>
-                                    <th>Mediana</th>
-                                    <th>Máx</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for col, stats in estatisticasLog.descritivas.items() %}
-                                <tr>
-                                    <td>{{ col }}</td>
-                                    <td>{{ stats['mean'] }}</td>
-                                    <td>{{ stats['std'] }}</td>
-                                    <td>{{ stats['min'] }}</td>
-                                    <td>{{ stats['50%'] }}</td>
-                                    <td>{{ stats['max'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tabela-scroll">
+                            <table class="tabela-mini">
+                                <thead>
+                                    <tr>
+                                        <th>Variável</th>
+                                        <th>Média</th>
+                                        <th>Desvio</th>
+                                        <th>Mín</th>
+                                        <th>Mediana</th>
+                                        <th>Máx</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for col, stats in estatisticasLog.descritivas.items() %}
+                                    <tr>
+                                        <td>{{ col }}</td>
+                                        <td>{{ stats['mean'] }}</td>
+                                        <td>{{ stats['std'] }}</td>
+                                        <td>{{ stats['min'] }}</td>
+                                        <td>{{ stats['50%'] }}</td>
+                                        <td>{{ stats['max'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                         <h3>Principais Achados:</h3>
                         <ul>
                             {% for achado in estatisticasLog.achados %}
@@ -149,26 +155,28 @@
                             {% endfor %}
                         </ul>
                         <h3>Amostra (5 primeiras linhas):</h3>
-                        <table class="tabela-mini">
-                            <thead>
-                                <tr>
-                                    <th>Nota</th>
-                                    <th>Idade</th>
-                                    <th>Bolsa</th>
-                                    <th>Alvo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for linha in estatisticasLog.amostra %}
-                                <tr>
-                                    <td>{{ linha['Admission grade'] }}</td>
-                                    <td>{{ linha['Age at enrollment'] }}</td>
-                                    <td>{{ linha['Scholarship holder'] }}</td>
-                                    <td>{{ linha['Target'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tabela-scroll">
+                            <table class="tabela-mini">
+                                <thead>
+                                    <tr>
+                                        <th>Nota</th>
+                                        <th>Idade</th>
+                                        <th>Bolsa</th>
+                                        <th>Alvo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for linha in estatisticasLog.amostra %}
+                                    <tr>
+                                        <td>{{ linha['Admission grade'] }}</td>
+                                        <td>{{ linha['Age at enrollment'] }}</td>
+                                        <td>{{ linha['Scholarship holder'] }}</td>
+                                        <td>{{ linha['Target'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="image-container">
                         <img src="{{url_for('static', filename='GraficoDistribuicaoLogistico.png')}}" />
@@ -198,30 +206,32 @@
                             {% endfor %}
                         </ul>
                         <h3>Estatísticas Descritivas:</h3>
-                        <table class="tabela-mini">
-                            <thead>
-                                <tr>
-                                    <th>Variável</th>
-                                    <th>Média</th>
-                                    <th>Desvio</th>
-                                    <th>Mín</th>
-                                    <th>Mediana</th>
-                                    <th>Máx</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for col, stats in estatisticasDes.descritivas.items() %}
-                                <tr>
-                                    <td>{{ col }}</td>
-                                    <td>{{ stats['mean'] }}</td>
-                                    <td>{{ stats['std'] }}</td>
-                                    <td>{{ stats['min'] }}</td>
-                                    <td>{{ stats['50%'] }}</td>
-                                    <td>{{ stats['max'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tabela-scroll">
+                            <table class="tabela-mini">
+                                <thead>
+                                    <tr>
+                                        <th>Variável</th>
+                                        <th>Média</th>
+                                        <th>Desvio</th>
+                                        <th>Mín</th>
+                                        <th>Mediana</th>
+                                        <th>Máx</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for col, stats in estatisticasDes.descritivas.items() %}
+                                    <tr>
+                                        <td>{{ col }}</td>
+                                        <td>{{ stats['mean'] }}</td>
+                                        <td>{{ stats['std'] }}</td>
+                                        <td>{{ stats['min'] }}</td>
+                                        <td>{{ stats['50%'] }}</td>
+                                        <td>{{ stats['max'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                         <h3>Principais Achados:</h3>
                         <ul>
                             {% for achado in estatisticasDes.achados %}
@@ -235,26 +245,28 @@
                             {% endfor %}
                         </ul>
                         <h3>Amostra (5 primeiras linhas):</h3>
-                        <table class="tabela-mini">
-                            <thead>
-                                <tr>
-                                    <th>Nota</th>
-                                    <th>Idade</th>
-                                    <th>Bolsa</th>
-                                    <th>Alvo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for linha in estatisticasDes.amostra %}
-                                <tr>
-                                    <td>{{ linha['Admission grade'] }}</td>
-                                    <td>{{ linha['Age at enrollment'] }}</td>
-                                    <td>{{ linha['Scholarship holder'] }}</td>
-                                    <td>{{ linha['Target'] }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tabela-scroll">
+                            <table class="tabela-mini">
+                                <thead>
+                                    <tr>
+                                        <th>Nota</th>
+                                        <th>Idade</th>
+                                        <th>Bolsa</th>
+                                        <th>Alvo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for linha in estatisticasDes.amostra %}
+                                    <tr>
+                                        <td>{{ linha['Admission grade'] }}</td>
+                                        <td>{{ linha['Age at enrollment'] }}</td>
+                                        <td>{{ linha['Scholarship holder'] }}</td>
+                                        <td>{{ linha['Target'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="image-container">
                         <img src="{{url_for('static', filename='GraficoDistribuicaoDecision.png')}}" />
