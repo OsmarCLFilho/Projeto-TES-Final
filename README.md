@@ -3,7 +3,6 @@
 Trabalho Final de **Tópicos Especiais em Software**.
 Aplicação web em Flask que analisa dados de estudantes com Pandas, gera gráficos e prevê **evasão ou conclusão** do curso com modelos de aprendizado supervisionado (scikit-learn).
 
-> Trechos marcados com **PENDENTE** dependem de informação que só a equipe tem. Preencham ou apaguem antes da entrega.
 
 ## Sumário
 
@@ -208,15 +207,14 @@ As imagens estão em `resultados/decisiontree_confusao.png` e `resultados/logist
 
 ## 9. Escolha final do modelo
 
-**PENDENTE: a equipe precisa decidir e registrar aqui.** A aplicação hoje mostra os dois modelos lado a lado.
+**PENDENTE: DECIDIR O QUE FAZER.** A aplicação hoje mostra os dois modelos lado a lado.
 
 Elementos para a justificativa:
 
 - Como as acurácias são idênticas, o critério de desempate deve ser o **tipo de erro**. Se o objetivo é identificar alunos em risco, vale priorizar a sensibilidade da evasão, em que a **Árvore de Decisão (0,50)** supera a **Regressão Logística (0,41)**.
 - A Regressão Logística tem precisão maior para evasão (0,68 contra 0,64) e é mais estável entre treino e teste.
 - A Árvore é mais fácil de explicar (`resultados/arvore_decisao.png`), mas é mais sensível a overfitting.
-
-> Texto sugerido, se escolherem a Árvore: *"Escolhemos a Árvore de Decisão como modelo final porque, com acurácia igual à da Regressão Logística, ela identifica mais alunos que realmente evadem (sensibilidade de 0,50 contra 0,41), que é o erro mais custoso neste problema."*
+*Escolhemos a Árvore de Decisão como modelo final porque, com acurácia igual à da Regressão Logística, ela identifica mais alunos que realmente evadem (sensibilidade de 0,50 contra 0,41), que é o erro mais custoso neste problema.*
 
 ## 10. Integração com o Flask
 
@@ -255,4 +253,3 @@ Elementos para a justificativa:
 - **Dataset:** UCI Machine Learning Repository (ver seção 2).
 - **Bibliotecas:** Flask, Pandas, NumPy, Matplotlib, scikit-learn e joblib (versões em `requirements.txt`).
 - **Referência da disciplina:** especificação do Trabalho Final (slides da disciplina).
-- **Uso de IA:** **PENDENTE:**
