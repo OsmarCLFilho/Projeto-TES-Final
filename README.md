@@ -27,7 +27,7 @@ Link para acesso ao repositório: https://github.com/OsmarCLFilho/Projeto-TES-Fi
 9. [Escolha final do modelo](#9-escolha-final-do-modelo)
 10. [Integração com o Flask](#10-integração-com-o-flask)
 11. [Limitações](#11-limitações)
-12. [Fontes, ferramentas e uso de IA](#12-fontes-ferramentas-e-uso-de-ia)
+12. [Fontes, ferramentas e uso de IA](#12-ferramentas-utilizadas)
 
 ---
 
